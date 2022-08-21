@@ -1,0 +1,22 @@
+body{
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  padding-bottom: 200px;
+}
+h1 {
+  color: purple;
+}
+
+.red-title {
+  background-color: red;
+  color: black;
+  padding: 10px;
+  border-top: 2px solid black;
+}
+
+.title {
+  color: black;
+  background-color: aqua;
+  padding: 10px;
+}

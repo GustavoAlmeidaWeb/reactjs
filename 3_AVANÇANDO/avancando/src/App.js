@@ -24,9 +24,9 @@ function App() {
   ]);
 
   const [users] = useState([
-    { id: 1, nome: 'Gustavo', idade: 33, profissao: 'Front End', cnh: true},
-    { id: 2, nome: 'Ana Paula', idade: 25, profissao: 'Advogada', cnh: true},
-    { id: 3, nome: 'Junior', idade: 16, profissao: 'Estudante', cnh: false}
+    { id: 1, nome: 'Gustavo', idade: 33, profissao: 'Front End'},
+    { id: 2, nome: 'Ana Paula', idade: 25, profissao: 'Advogada'},
+    { id: 3, nome: 'Junior', idade: 16, profissao: 'Estudante'}
   ]);
 
   function showMessage(){
@@ -64,9 +64,9 @@ function App() {
       {cars.map((car) => (
         <CarDetails key={car.id} brand={car.brand} color={car.color} km={car.km} newCar={car.newCar} />
       ))}
-
+      {/* Desafio  */}
       {users.map((user) => (
-        <UserDetails key={user.id} nome={user.nome} idade={user.idade} profissao={user.profissao} cnh={user.cnh}/>
+        <UserDetails key={user.id} nome={user.nome} idade={user.idade} profissao={user.profissao}/>
       ))}
 
       {/* Fragments */}
