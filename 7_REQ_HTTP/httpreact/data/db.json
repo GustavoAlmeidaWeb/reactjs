@@ -31,9 +31,34 @@
       "id": 6
     },
     {
-      "name": "pera",
-      "price": "12",
-      "id": 7
+      "name": "Jabulani",
+      "price": "300",
+      "id": 8
+    },
+    {
+      "name": "mousepad",
+      "price": "10",
+      "id": 9
+    },
+    {
+      "name": "Suport",
+      "price": "120",
+      "id": 10
+    },
+    {
+      "name": "TV",
+      "price": "2000",
+      "id": 13
+    },
+    {
+      "name": "Bola",
+      "price": "100",
+      "id": 16
+    },
+    {
+      "name": "tela",
+      "price": "20",
+      "id": 17
     }
   ]
 }
