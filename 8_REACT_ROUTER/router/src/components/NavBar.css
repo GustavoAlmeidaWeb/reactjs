@@ -1,0 +1,21 @@
+nav {
+    display: flex;
+    justify-content: center;
+}
+
+nav ul li {
+    list-style: none;
+}
+
+nav a {
+    margin: 10px;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    background: #999;
+}
+nav a:hover, 
+.active {
+    background: black;
+    color: orange;
+}
