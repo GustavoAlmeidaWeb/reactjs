@@ -5,23 +5,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { CounterContextProvider } from './context/CounterContext';
-import { TitleColorContextProvider } from './context/TitleColorContext';
-
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHouse, faBook, faCartShopping, faMobilePhone, faSearch } from "@fortawesome/free-solid-svg-icons";
-
-library.add(faHouse, faBook, faCartShopping, faMobilePhone, faSearch);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      <CounterContextProvider>
-        <TitleColorContextProvider>
-          <App />
-        </TitleColorContextProvider>
-      </CounterContextProvider>
+      <App />
     </BrowserRouter>
   </React.StrictMode>
 );

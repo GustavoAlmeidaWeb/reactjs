@@ -1,18 +1,21 @@
 nav {
-    display: flex;
-    justify-content: center;
     margin-bottom: 15px;
 }
+nav .navbar-brand {
+    color: white !important;
+}
+nav .navbar-brand:hover {
+    background: none;
+}
 nav a {
-    background: #ededed;
     padding: 10px;
     margin-left: 5px;
     text-decoration: none;
-    color: black;
+    color: white;
     border-radius: 5px;
 }
 nav a:hover,
 .active {
-    background: black;
+    background: rgb(46, 46, 46);
     color: white;
 }
