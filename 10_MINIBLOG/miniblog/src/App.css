@@ -1,3 +1,6 @@
+.container {
+  /* min-height: 450px; */
+}
 .active {
   background-color: rgb(0, 0, 0);
   color: white;

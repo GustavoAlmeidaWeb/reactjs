@@ -25,7 +25,7 @@ export const useAuthentication = () => {
             return;
         }
     }
-
+    // Cadastro -- Register
     const createUser = async (data) => {
         
         checkIfIsCancelled();
@@ -60,11 +60,42 @@ export const useAuthentication = () => {
                 systemErrorMessage = 'Ocorreu um erro, tente mais tarde';
             }
             
-            setLoading(false);
             setError(systemErrorMessage);
-            
+            setLoading(false);            
         }
     };
+
+    const logout = () => {
+        checkIfIsCancelled();
+        signOut(auth);
+    }
+
+    // Login
+    const login = async (data) => {
+        checkIfIsCancelled();
+        setLoading(true);
+        setError(false);
+
+        try {
+            
+            await signInWithEmailAndPassword(auth, data.email, data.password);
+            setLoading(false);
+
+        } catch (error) {
+            let systemErrorMessage;
+            if(error.message.includes('user-not-found')){
+                systemErrorMessage = 'Usuário não encontrado';
+            } else if(error.message.includes('Password')){ 
+                systemErrorMessage = 'Senha incorreta';
+            }else if(error.message.includes('TOO_MANY_ATTEMPTS_TRY_LATER')){ 
+                systemErrorMessage = 'Você tentou acessar muitas vezes, aguarde alguns minutos.';
+            } else {
+                systemErrorMessage = 'Ocorreu um erro, tente mais tarde';
+            }
+            setError(systemErrorMessage);
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         return setCancelled(true);
@@ -74,6 +105,8 @@ export const useAuthentication = () => {
         auth,
         createUser,
         error,
-        loading
+        loading,
+        logout,
+        login
     };
 }
