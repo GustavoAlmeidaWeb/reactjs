@@ -13,6 +13,7 @@ const CreatePost = () => {
   const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState('');
 
+  const navigate = useNavigate();
   const {user} = useAuthValue();
   const {insertDocument, response} = useInsertDocument('posts');
 
@@ -21,12 +22,30 @@ const CreatePost = () => {
     setFormError('');
 
     // Validate img URL
+    try {
+      new URL(image);
+    } catch (error) {
+      setFormError('A imagem precisa ser uma URL.');
+    }
 
     // criar o array tags
+    const tagsArray = tags.split(',').map((tag) => tag.trim().toLowerCase());
 
     // checar todos os valores
+    if (!title || !image || !tags || !body) {
+      setFormError('Todos os campos devem ser preenchidos');
+    }
 
-    insertDocument({ title, image, body, tags, uid: user.uid, createdBy: user.displayName });
+    if(formError) return;
+
+    insertDocument({ title, image, body, tagsArray, uid: user.uid, createdBy: user.displayName });
+
+    setTitle('');
+    setImage('');
+    setTags('');
+    setBody('');
+
+    navigate('/');
   }
   return (
     <Container className='my-5'>
@@ -53,6 +72,9 @@ const CreatePost = () => {
         {response.loading && <Button variant="primary" type="submit" disabled>Aguarde...</Button>}
         {response.error && 
             <Alert variant='danger' className='my-3'>{response.error}</Alert>
+        }
+        {formError && 
+            <Alert variant='danger' className='my-3'>{formError}</Alert>
         }
       </Form>
     </Container>
