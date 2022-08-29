@@ -4,6 +4,7 @@ import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuthValue } from '../../context/AuthContext';
+import { useInsertDocument } from '../../hooks/useInsertDocument';
 
 const CreatePost = () => {
   const [title, setTitle] = useState('');
@@ -12,8 +13,20 @@ const CreatePost = () => {
   const [tags, setTags] = useState([]);
   const [formError, setFormError] = useState('');
 
+  const {user} = useAuthValue();
+  const {insertDocument, response} = useInsertDocument('posts');
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormError('');
+
+    // Validate img URL
+
+    // criar o array tags
+
+    // checar todos os valores
+
+    insertDocument({ title, image, body, tags, uid: user.uid, createdBy: user.displayName });
   }
   return (
     <Container className='my-5'>
@@ -36,12 +49,11 @@ const CreatePost = () => {
           <Form.Label>Tags</Form.Label>
           <Form.Control type="text" name="tags" placeholder="Coloque suas tags, separadas por vírgula" onChange={(e) => setTags(e.target.value)} value={tags} />
         </Form.Group>
-        <Button variant="primary" type="submit">Cadastrar</Button>
-        {/* {!loading && <Button variant="primary" type="submit">Cadastrar</Button>}
-        {loading && <Button variant="primary" type="submit" disabled>Aguarde...</Button>}
-        {error && 
-            <Alert variant='danger' className='my-3'>{error}</Alert>
-        } */}
+        {!response.loading && <Button variant="primary" type="submit">Cadastrar</Button>}
+        {response.loading && <Button variant="primary" type="submit" disabled>Aguarde...</Button>}
+        {response.error && 
+            <Alert variant='danger' className='my-3'>{response.error}</Alert>
+        }
       </Form>
     </Container>
   )
