@@ -16,7 +16,7 @@ const Search = () => {
     <Container className="text-center my-5">
         <h2 className="my-3">Resultados da busca...</h2>
         <div>
-            {!posts && (
+            {posts && posts.length === 0 && (
                 <>
                     <p>Não foram encontrados resultados a partir de sua busca...</p>
                     <Link to='/' className="btn btn-primary">Voltar</Link>
