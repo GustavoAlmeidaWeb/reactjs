@@ -2,23 +2,25 @@ import styles from './Home.module.css';
 import { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Container, Form, Button, Row } from 'react-bootstrap';
-import { useFetchDocument } from '../../hooks/useFetchDocuments';
+import { useFetchDocuments } from '../../hooks/useFetchDocuments';
 import PostDetail from '../../components/PostDetail';
 
 const Home = () => {
 
   const [query, setQuery] = useState('');
-  const { documents: posts, loading } = useFetchDocument('posts');
+  const { documents: posts, loading } = useFetchDocuments('posts');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(query) {
+      return navigate(`/search?q=${query}`);
+    }
   }
-
-  console.log({posts});
 
   return (
     <Container className='my-5 text-center'>
-      <h1 className='text-center'>Nossos Posts mais recentes</h1>
+      <h1 className='display-4 my-3'>Nossos Posts mais recentes</h1>
       <Row>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -30,7 +32,6 @@ const Home = () => {
         </Form>
       </Row>
       <Row className='my-5'>
-        <h2>Posts...</h2>
         {posts && posts.map((post) => (
           <PostDetail post={post} key={post.id} />
         ))}

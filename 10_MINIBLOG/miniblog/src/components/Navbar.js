@@ -3,6 +3,7 @@ import { Container, Nav, Navbar } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useAuthentication } from '../hooks/useAuthentication';
 import { useAuthValue } from '../context/AuthContext';
+import SearchForm from './SearchForm';
 
 const NavBar = () => {
   const { user } = useAuthValue();
@@ -31,6 +32,7 @@ const NavBar = () => {
                   </>
                 }
             </Nav>
+              <SearchForm />
             </Navbar.Collapse>
         </Container>
     </Navbar>

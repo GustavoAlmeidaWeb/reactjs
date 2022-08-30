@@ -1,18 +1,21 @@
+import styles from './PostDetail.module.css';
 import { Link } from "react-router-dom";
 import { Container } from "react-bootstrap";
 
 const PostDetail = ({post}) => {
   return (
-    <Container>
+    <Container className={styles.post_detail}>
         <img src={post.image} alt={post.title} />
-        <h2>{post.title}</h2>
-        <p>{post.createdBy}</p>
-        <div>
-            {post.tagsArray.map((tag) => (
-                <p key={tag}><span>#</span>{tag}</p>
-            ))}
+        <div className="my-3">
+          <h2>{post.title}</h2>
+          <p className={styles.createdBy}>{post.createdBy}</p>
+          <div className={styles.tags}>
+              {post.tagsArray.map((tag) => (
+                  <p key={tag}><span>#</span>{tag}</p>
+              ))}
+          </div>
+          <Link to={`/posts/${post.id}`} className="btn btn-primary">Ler mais</Link>
         </div>
-        <Link to={`/posts/${post.id}`} className="btn btn-primary">Ler mais</Link>
     </Container>
     
   )
