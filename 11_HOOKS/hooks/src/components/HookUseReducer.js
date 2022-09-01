@@ -64,4 +64,4 @@ const HookUseReducer = () => {
   )
 }
 
-export default HookUseReducer
+export default HookUseReducer;
