@@ -51,13 +51,8 @@
       "id": 13
     },
     {
-      "name": "Bola",
-      "price": "100",
-      "id": 16
-    },
-    {
-      "name": "tela",
-      "price": "20",
+      "name": "Tela",
+      "price": 1990,
       "id": 17
     }
   ]

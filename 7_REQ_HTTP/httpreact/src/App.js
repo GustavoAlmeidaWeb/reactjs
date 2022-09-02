@@ -9,58 +9,40 @@ const url = 'http://localhost:3000/products';
 
 function App() {
 
-  // const [products, setProducts] = useState([]);
-
-  // 4 - Custom Hook
+  // 4 - Custom Hook => Get Data
   const { data: items, httpConfig, loading, error } = useFetch(url);
 
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
+  const [idItem, setIdItem] = useState(null);
 
-  // 1 - Resgatando dados
-  // useEffect(() => {
-  //   async function fetchData(){
-  //     const res = await fetch(url);
-  //     const data = await res.json();
-  //     setProducts(data);
-  //   }
-  //   fetchData()
-  // }, []);
-
-  // 2 - Add produtos
+  // 2 - Add product
   const handleSubmit = async (e) => {
 
     e.preventDefault();
     const product = {
-      name, price
+      name, price: Number(price),
     };
 
-    // const res = await fetch(url, {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type":"application/json"
-    //   },
-    //   body: JSON.stringify(product),
-    // });
-  
-    // // 3 - Carregamento dinamico
-    // const addedProduct = await res.json();
-    // setProducts((prevProducts) => [...prevProducts, addedProduct]);
-
-    // 5 - REFATORANDO POST
-    httpConfig(product, 'POST');
+    // 5 - Refatoring Post and Update Product
+    !idItem ? httpConfig(product, 'POST') : httpConfig(product, 'PUT', idItem);
 
     setName('');
     setPrice('');
-  
+    setIdItem(null);
   };
 
-  // Desafio
-
+  // Remove product
   const handleRemove = (id) => {
     httpConfig(id, 'DELETE');
   }
 
+  // Edit product
+  const handleEdit = (name, price, id) => {
+    setName(name);
+    setPrice(price);
+    setIdItem(id);
+  }
   
   return (
     <div className="App">
@@ -71,7 +53,7 @@ function App() {
       {!error && (
         <ul>
           {items && items.map((product) => (
-            <li key={product.id}>{product.name} - R$: {product.price} - <button onClick={()=> handleRemove(product.id)}>Excluir</button></li>
+            <li key={product.id}>{product.name} - R$: {product.price} - <button onClick={() => handleEdit(product.name, product.price, product.id)}>Editar</button> - <button onClick={()=> handleRemove(product.id)}>Excluir</button></li>
           ))}
         </ul>
       )}
@@ -85,7 +67,7 @@ function App() {
             Preço:
             <input type="number" value={price} name="price" onChange={(e) => setPrice(e.target.value)}/>
           </label>
-          {!loading && <input type="submit" value="Criar" />}
+          {!loading && <input type="submit" value="Salvar" />}
           {loading && <input type="submit" disabled value="Aguarde..." />}
         </form>
       </div>
