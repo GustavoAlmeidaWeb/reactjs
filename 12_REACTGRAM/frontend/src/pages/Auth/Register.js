@@ -1,19 +1,29 @@
 import './Auth.css';
+import Message from '../../components/Message';
 
 // Hooks
 import { useState, useEffect } from 'react';
+
+// Redux
+import { register, reset } from '../../slices/authSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 // Link
 import { Link } from 'react-router-dom';
 
 // Bootstrap
-import { Container, Row, Col, Form, FloatingLabel, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, FloatingLabel, Button, Alert } from 'react-bootstrap';
+
 
 const Register = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+
+  const dispatch = useDispatch();
+
+  const { loading, error } = useSelector((state) => state.auth);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -26,7 +36,15 @@ const Register = () => {
     }
 
     console.log(user);
+    dispatch(register(user));
   }
+
+  // Clean all auth states
+  useEffect(() => {
+
+    dispatch(reset());
+
+  }, [dispatch])
 
   return (
     <Container>
@@ -50,9 +68,12 @@ const Register = () => {
               <Form.Control type="password" placeholder="Confimar Senha" onChange={(e) => setConfirmPassword(e.target.value)} value={confirmPassword || ''} />
             </FloatingLabel>
             <Form.Label className="d-grid">
-              <Button type="submit" size="lg" variant="primary">Cadastrar</Button>
+              {!loading && <Button type="submit" size="lg" variant="primary">Cadastrar</Button>}
+              {loading && <Button type="submit" size="lg" variant="primary" disabled>Aguarde...</Button>}
+              {error && <Message msg={error} type='danger'/>}
             </Form.Label>
           </Form>
+          
           <p className="text-center">Já tem conta ?  <Link to="/login">Clique Aqui</Link></p>
         </Col>
       </Row>
