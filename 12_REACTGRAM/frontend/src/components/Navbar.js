@@ -1,9 +1,31 @@
 import './Navbar.css';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Container, Navbar, Nav, Form, Button, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
+// Hooks
+import { useAuth } from '../hooks/useAuth';
+import { useDispatch, useSelector } from 'react-redux';
+
+// Redux
+import { logout, reset } from '../slices/authSlice';
+
+
 const NavBar = () => {
+
+  const { auth } = useAuth();
+  const { user } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    dispatch(logout());
+    dispatch(reset());
+
+    navigate('/');
+  }
+
   return (
     <Row>
       <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -11,10 +33,6 @@ const NavBar = () => {
           <Navbar.Brand href="#home">ReactGram</Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
-            {/* <Nav className="me-auto">
-              <Nav.Link href="#features"> Home</Nav.Link>
-              <Nav.Link href="#pricing">Pricing</Nav.Link>
-            </Nav> */}
             <Nav className="m-auto">
               <Form className="d-flex">
                 <Form.Control
@@ -27,9 +45,21 @@ const NavBar = () => {
               </Form>
             </Nav>
             <Nav>
-              <NavLink to="/" className='btn btn-dark'><FontAwesomeIcon icon="house" /></NavLink>
-              <NavLink to="/login" className='btn btn-dark'>Entrar</NavLink>
-              <NavLink to="/register" className='btn btn-dark'>Cadastre-se</NavLink>
+              {auth ? (
+                <>
+                  <NavLink to="/" className='btn btn-dark'><FontAwesomeIcon icon="house" /></NavLink>
+                  {user && (
+                    <NavLink to={`/users/${user._id}`} className='btn btn-dark'><FontAwesomeIcon icon="camera" /></NavLink>
+                  )}
+                  <NavLink to="/profile" className='btn btn-dark'><FontAwesomeIcon icon="user" /></NavLink>
+                  <NavLink to="/logout" className='btn btn-dark' onClick={handleLogout}>Sair <FontAwesomeIcon icon="right-from-bracket" /></NavLink>
+                </>
+              ) : (
+                <>
+                  <NavLink to="/login" className='btn btn-dark'>Entrar</NavLink>
+                  <NavLink to="/register" className='btn btn-dark'>Cadastre-se</NavLink>
+                </>
+              )}
             </Nav>
           </Navbar.Collapse>
         </Container>

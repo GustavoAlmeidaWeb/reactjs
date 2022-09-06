@@ -1,7 +1,7 @@
 import './App.css';
 
 // BootStrap
-import { Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 
 // Hooks
 import { useAuth } from './hooks/useAuth';
@@ -13,6 +13,7 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import Home from './pages/Home/Home';
 import Login from './pages/Auth/Login';
 import Register from './pages/Auth/Register';
+import EditProfile from './pages/EditProfile/EditProfile';
 
 // Components
 import NavBar from './components/Navbar';
@@ -33,8 +34,10 @@ function App() {
       <Container className='main'>
         <Routes>
           <Route path='/' element={auth ? <Home /> : <Navigate to='/login'/>}/>
+          <Route path='/profile' element={auth ? <EditProfile /> : <Navigate to='/login'/>}/>
           <Route path='/login' element={!auth ? <Login /> : <Navigate to='/'/>}/>
           <Route path='/register' element={!auth ? <Register /> : <Navigate to='/'/>}/>
+          <Route path='/logout' element={<Navigate to='/'/>}/>
         </Routes>
       </Container>
       <Footer />

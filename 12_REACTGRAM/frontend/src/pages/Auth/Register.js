@@ -12,7 +12,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 // Bootstrap
-import { Container, Row, Col, Form, FloatingLabel, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, FloatingLabel, Button } from 'react-bootstrap';
 
 
 const Register = () => {
