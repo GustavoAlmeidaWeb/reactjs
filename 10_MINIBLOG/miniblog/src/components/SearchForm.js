@@ -1,17 +1,17 @@
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Form, Button } from "react-bootstrap";
 
 const SearchForm = () => {
 
-    const [query, setQuery] = useState('');
-    const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if(query) {
-      return navigate(`/search?q=${query}`);
-    }
+      e.preventDefault();
+      if(query) {
+        return navigate(`/search?q=${query}`);
+      }
   }
 
   return (

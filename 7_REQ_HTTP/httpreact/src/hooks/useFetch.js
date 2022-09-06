@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
+import axios from "axios";
 
 // 4 - Custom hook 
 export const useFetch = (url) => {
-    const [data,setData] = useState(null);
+    const [data, setData] = useState(null);
 
-    // 5 - Refatorando o Post
+    // 5 - Refatoring Post
     const [config, setConfig] = useState(null);
     const [method, setMethod] = useState(null);
     const [callFetch, setCallFetch] = useState(false);
@@ -12,75 +13,89 @@ export const useFetch = (url) => {
     // 6 - Loading
     const [loading, setLoading] = useState(false);
 
-    // 7 - Tratando erros
+    // 7 - Errors Traitment
     const [error, setError] = useState(null);
 
-    // 8 - Recebe id item
+    // 8 - id item Received
     const [itemId, setItemId] = useState(null);
 
-    const httpConfig = (data, method) => {
+    const httpConfig = (data, method, id) => {
+
+        // Create product method
         if(method === 'POST'){
             setConfig({
-                method,
-                headers: {
-                    "Content-Type":"application/json"
-                },
-                body: JSON.stringify(data)
-            })
-
-            setMethod(method);
-        } else if (method === 'DELETE') {
-            setConfig({
+                url,
+                data,
                 method,
                 headers: {
                     "Content-Type":"application/json"
                 }
             })
-
             setMethod(method);
-            setItemId(data);
+        
+        // Delete product method
+        } else if (method === 'DELETE') {
+            setConfig({
+                url: `${url}/${data}`,
+                method,
+                headers: {
+                    "Content-Type":"application/json"
+                }
+            })
+            setMethod(method);
+
+        // Update product method
+        } else if (method === 'PUT') {
+            setConfig({
+                url: `${url}/${id}`,
+                data,
+                method,
+                headers: {
+                    "Content-Type":"application/json"
+                }
+            })
+            setMethod(method);
         }
     }
 
-    // GET PEGANDO A LISTA DE ITEMS
     useEffect(() => {
-        const fetchData = async () => {
+
+        const fetchData = () => {
 
             setLoading(true);
 
             try {
-                const res = await fetch(url);
-                const json = await res.json();
-                setData(json);
+                
+               axios.get(url).then(response => setData(response.data));
+
             } catch (error) {
+
                 console.log(error.message);
                 setError('Houve algum problema ao carregar os dados.');
+
             }
             
             setLoading(false);
         }
+
         fetchData();
-    },[url, callFetch]);
 
-    // 5 - Refatorando POST
-    useEffect(()=>{
+    }, [url, callFetch]);
+
+    // 5 - Refatoring Post and Delete with Axios
+    useEffect(() => {
+
         const httpRequest = async () => {
+
+            // Usei o Try Catch e deu merda... Não sei o pq :( ...
             let json;
-
-            if(method === 'POST'){
-                let fetchOptions = [url, config];
-                const res = await fetch(...fetchOptions);
-                json = await res.json();
-            } else if (method === 'DELETE') {
-                const deleteUrl = `${url}/${itemId}`;
-                const res = await fetch(deleteUrl, config);
-                json = await res.json();
-            }
+            await axios({...config}).then(response => json = response.data);
             setCallFetch(json);
-        }
 
+        }
         httpRequest();
-    },[config, method, url, itemId]);
+
+    },[config]);
 
     return { data, httpConfig, loading, error };
 }

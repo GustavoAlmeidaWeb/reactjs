@@ -11,54 +11,44 @@
       "price": 100
     },
     {
-      "id": 3,
-      "name": "Boné",
-      "price": 79
-    },
-    {
-      "id": 4,
-      "name": "Calça",
-      "price": 119
-    },
-    {
-      "name": "Jaca",
-      "price": "100",
-      "id": 5
-    },
-    {
-      "name": "Laranja",
-      "price": "20.9",
+      "name": "VGA",
+      "price": 4500,
       "id": 6
     },
     {
-      "name": "Jabulani",
-      "price": "300",
+      "name": "Gabinete",
+      "price": 200,
+      "id": 7
+    },
+    {
+      "name": "Motherboard",
+      "price": 800,
       "id": 8
     },
     {
-      "name": "mousepad",
-      "price": "10",
+      "name": "DDR4",
+      "price": 800,
       "id": 9
     },
     {
-      "name": "Suport",
-      "price": "120",
+      "name": "Fonte Corsair",
+      "price": 799,
       "id": 10
     },
     {
-      "name": "TV",
-      "price": "2000",
+      "name": "SSD 1TB NVME",
+      "price": 180,
+      "id": 11
+    },
+    {
+      "name": "Processador",
+      "price": 2500,
+      "id": 12
+    },
+    {
+      "name": "144hz",
+      "price": 1990,
       "id": 13
-    },
-    {
-      "name": "Bola",
-      "price": "100",
-      "id": 16
-    },
-    {
-      "name": "tela",
-      "price": "20",
-      "id": 17
     }
   ]
 }
