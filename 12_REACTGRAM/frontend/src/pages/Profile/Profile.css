@@ -43,3 +43,7 @@
     align-items: center;
     margin-top: 5px;
 }
+
+.photo-edit img {
+    width: 100%;
+}

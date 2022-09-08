@@ -11,7 +11,7 @@ import { upload } from '../../utils/config';
 import Message from '../../components/Message';
 
 import { getUserDetails } from '../../slices/userSlice';
-import { publishPhoto, resetMessage, getUserPhotos } from '../../slices/photoSlice';
+import { publishPhoto, resetMessage, getUserPhotos, deletePhoto, updatePhoto } from '../../slices/photoSlice';
 
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -26,8 +26,14 @@ const Profile = () => {
     const {user: userAuth} = useSelector((state) => state.auth);
     const { photos, loading: loadingPhoto, error: errorPhoto, message: messagePhoto } = useSelector((state) => state.photo);
 
+    // create photo states
     const [title, setTitle] = useState('');
     const [image, setImage] = useState('');
+
+    // update photo state
+    const [editId, setEditId] = useState('');
+    const [editImage, setEditImage] = useState('');
+    const [editTitle, setEditTitle] = useState('');
 
     // Photo
     const newPhotoForm = useRef();
@@ -49,6 +55,14 @@ const Profile = () => {
     
     };
 
+    const resetMessageComponent = () => {
+
+        setTimeout(() => {
+            dispatch(resetMessage());
+        }, 2000);
+
+    }
+
     const handleSubmit = (e) => {
         e.preventDefault();
 
@@ -68,11 +82,55 @@ const Profile = () => {
         setTitle('');
         setImage('');
 
-        setTimeout(() => {
-            dispatch(resetMessage());
-        }, 2000);
+        resetMessageComponent();
 
     };
+
+    // Show or Hide Forms
+    const showOrHide = () => {
+        newPhotoForm.current.classList.toggle('hide');
+        editPhotoForm.current.classList.toggle('hide');
+    }
+
+    // Delete a photo
+    const handleDelete = (id) => {
+        
+        dispatch(deletePhoto(id));
+
+        resetMessageComponent();
+
+    }
+
+    // Update a photo
+    const handleUpdate = (e) => {
+        e.preventDefault();
+
+        const photoData = {
+            title: editTitle,
+            id: editId,
+        }
+
+        dispatch(updatePhoto(photoData));
+
+        resetMessageComponent();
+    }
+
+    // Open edit form
+    const handleEdit = (photo) => {
+
+        if(editPhotoForm.current.classList.contains('hide')){
+            showOrHide();
+        }
+
+        setEditId(photo._id);
+        setEditTitle(photo.title);
+        setEditImage(photo.image);
+    }
+
+    // Cancel Update a photo
+    const handleCancelEdit = () => {
+        showOrHide();
+    }
 
     if(loading){
         return <p>Carregando...</p>
@@ -117,6 +175,24 @@ const Profile = () => {
                             </Form.Label>
                         </Form>
                     </Col>
+                    <Col md={{ span: 6, offset: 3 }} ref={editPhotoForm} className='my-5 hide photo-edit'>
+                        <p className='display-6 text-center'>Editando a foto...</p>
+                        {editImage && (
+                            <img className="mb-3" src={`${upload}/photos/${editImage}`} alt={editTitle} />
+                        )}
+                        <Form onSubmit={handleUpdate} className="mb-3">
+                            <Form.Group className="mb-3" >
+                                <Form.Control type="text" placeholder="Editar o título" onChange={(e) => setEditTitle(e.target.value)} value={editTitle || ''}/>
+                            </Form.Group>
+                            <Form.Label className="d-grid">
+                                <Button type="submit" size="lg" variant="primary">Atualizar</Button>
+                                <Button size="lg" variant="warning" className='my-3' onClick={handleCancelEdit}>Cancelar Edição</Button>
+                                {errorPhoto && <Message msg={errorPhoto} type='danger'/>}
+                                {messagePhoto && <Message msg={messagePhoto} type='success'/>}
+                            </Form.Label>
+                        </Form>
+
+                    </Col>
                 </>
             )}
         </Row>
@@ -136,8 +212,12 @@ const Profile = () => {
                                         <Link to={`/photos/${photo._id}`} className='btn text-white' >
                                             <FontAwesomeIcon icon="eye"/>
                                         </Link>
-                                        <FontAwesomeIcon icon="pencil" className='btn text-white' />
-                                        <FontAwesomeIcon icon="xmark" className='btn text-white' />
+                                        <Button className='btn text-white' onClick={() => handleEdit(photo)}>
+                                            <FontAwesomeIcon icon="pencil" />
+                                        </Button>
+                                        <Button className='btn-default text-white' onClick={() => handleDelete(photo._id)}>
+                                            <FontAwesomeIcon icon="xmark" />
+                                        </Button>
                                     </div>
                                 ) : (
                                     <Link to={`/photos/${photo._id}`}>Ver</Link>
