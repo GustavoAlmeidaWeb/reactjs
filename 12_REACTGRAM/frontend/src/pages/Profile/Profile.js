@@ -1,4 +1,10 @@
 import './Profile.css';
+
+// Bootstrap and FontAwesome
+import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+// Router Dom
 import { useParams } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -10,12 +16,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { upload } from '../../utils/config';
 import Message from '../../components/Message';
 
+// Redux
 import { getUserDetails } from '../../slices/userSlice';
 import { publishPhoto, resetMessage, getUserPhotos, deletePhoto, updatePhoto } from '../../slices/photoSlice';
-
-import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
 
 
 const Profile = () => {
@@ -198,9 +201,9 @@ const Profile = () => {
         </Row>
         <Row>
             <>
-                {photos && <p className='display-6 text-center'>Fotos Publicadas</p>}
-                {photos.length === 0 && <p className='display-6 text-center'>Não há fotos Publicadas...</p>}
-                <Col md={{ span: 8, offset: 2 }} className='my-5 container-photos'>
+                {photos && <p className='display-6 text-center my-3'>Fotos Publicadas</p>}
+                {photos.length === 0 && <p className='display-6 text-center my-3'>Não há fotos Publicadas...</p>}
+                <Col md={{ span: 8, offset: 2 }} className='container-photos'>
                     {photos && photos.map((photo) => (
                         <>
                             <div className="photo text-center" key={photo._id}>
@@ -228,7 +231,7 @@ const Profile = () => {
                                         </OverlayTrigger>
                                     </div>
                                 ) : (
-                                    <Link to={`/photos/${photo._id}`}>Ver</Link>
+                                    <Link to={`/photos/${photo._id}`} className="btn btn-dark my-2">Ver</Link>
                                 )}
                             </div>
                         </>

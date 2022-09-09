@@ -1,9 +1,11 @@
 import './PhotoItem.css';
 
+// Bootstrap and FontAwesome
+import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { upload } from '../utils/config';
 import { Link } from 'react-router-dom';
-
-import { Container, Row, Col } from 'react-bootstrap';
 
 
 const PhotoItem = ({ photo, handleLike }) => {
@@ -15,7 +17,7 @@ const PhotoItem = ({ photo, handleLike }) => {
                     <img src={`${upload}/photos/${photo.image}`} alt={photo.title} onDoubleClick={() => handleLike(photo)} />
                 )}
                 <h2 className='my-3'>{photo.title}</h2>
-                <p>Publicado por: <Link to={`/users/${photo.userId}`} >{photo.userName}</Link></p>
+                <p><FontAwesomeIcon icon="user"/> Publicado por: <Link to={`/users/${photo.userId}`} >{photo.userName}</Link></p>
             </Col>
         </Row>
     </Container>

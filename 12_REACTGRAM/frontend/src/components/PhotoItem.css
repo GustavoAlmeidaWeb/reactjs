@@ -5,3 +5,12 @@
     cursor: pointer;
     max-width: 100%;
 }
+.photo-item a {
+    color: #ededed;
+    font-style: italic;
+    font-weight: bold;
+    text-decoration: none;
+}
+.photo-item a:hover {
+    color: white;
+}

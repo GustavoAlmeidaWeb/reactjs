@@ -1,6 +1,8 @@
 import './Home.css';
 
+// Bootstrap and FontAwesome
 import { Container, Row, Col } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Components
 import LikeContainer from '../../components/LikeContainer';
@@ -46,18 +48,17 @@ const Home = () => {
               <PhotoItem photo={photo} handleLike={handleLike} />
               <LikeContainer photo={photo} user={user} handleLike={handleLike} />
               <div className="text-center mt-3">
-                <Link to={`/photos/${photo._id}`} className="btn btn-dark">Ver foto</Link>
+                <Link to={`/photos/${photo._id}`} className="btn btn-dark"><FontAwesomeIcon icon="eye" /> Ver foto</Link>
               </div>
             </div>
           ))}
           {photos && photos.length === 0 && (
-            <div className="no-photos">
-              <h2>
-                Ainda não há fotos publicadas
-                <Link to={`/users/${user._id}`}>Clique Aqui</Link>
+            <div className="no-photos text-center">
+              <h2 className='my-3 h4'>
+                <FontAwesomeIcon icon="face-frown" /> Ainda não há fotos publicadas <Link to={`/users/${user._id}`}>Clique Aqui</Link>
               </h2>
             </div>
-          )} 
+          )}  
         </Col>
       </Row>
     </Container>
