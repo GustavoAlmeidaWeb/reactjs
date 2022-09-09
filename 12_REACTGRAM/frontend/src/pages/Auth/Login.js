@@ -48,7 +48,7 @@ const Login = () => {
       <Row>
         <div className="text-center mb-4">
           <h2 className='display-4 mb-3'>Faça seu Login</h2>
-          <p>Realize seu cadastro e começe a postar suas fotos...</p>
+          <p>Faça seu login e comece a postar suas fotos...</p>
         </div>
         <Col md={{ span: 6, offset: 3 }}>
           <Form onSubmit={handleSubmit} className="mb-3">
