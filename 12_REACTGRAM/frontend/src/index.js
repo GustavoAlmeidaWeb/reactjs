@@ -11,9 +11,10 @@ import { store } from './store';
 import { BrowserRouter } from 'react-router-dom';
 
 import { library } from "@fortawesome/fontawesome-svg-core";
-import { faHouse, faBook, faCartShopping, faMobilePhone, faSearch, faCamera, faUser, faRightFromBracket, faEye, faPencil, faXmark } from "@fortawesome/free-solid-svg-icons";
+import { fas } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as faFillHeart } from '@fortawesome/free-regular-svg-icons';
 
-library.add(faHouse, faBook, faCartShopping, faMobilePhone, faSearch, faCamera, faUser, faRightFromBracket, faEye, faPencil, faXmark);
+library.add(fas, faFillHeart);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

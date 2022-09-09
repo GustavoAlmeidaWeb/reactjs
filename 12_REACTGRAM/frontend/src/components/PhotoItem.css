@@ -1,0 +1,7 @@
+.photo-item {
+    text-align: center;
+}
+.photo-item img {
+    cursor: pointer;
+    max-width: 100%;
+}

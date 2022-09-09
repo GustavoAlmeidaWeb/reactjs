@@ -13,7 +13,7 @@ import Message from '../../components/Message';
 import { getUserDetails } from '../../slices/userSlice';
 import { publishPhoto, resetMessage, getUserPhotos, deletePhoto, updatePhoto } from '../../slices/photoSlice';
 
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import { Container, Row, Col, Form, Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
@@ -205,19 +205,27 @@ const Profile = () => {
                         <>
                             <div className="photo text-center" key={photo._id}>
                                 {photo.image && (
-                                    <img src={`${upload}/photos/${photo.image}`} alt={photo.title} />
+                                    <Link to={`/photos/${photo._id}`}>
+                                        <img src={`${upload}/photos/${photo.image}`} alt={photo.title} />
+                                    </Link>
                                 )}
                                 {id === userAuth._id ? (
                                     <div className="actions">
-                                        <Link to={`/photos/${photo._id}`} className='btn text-white' >
-                                            <FontAwesomeIcon icon="eye"/>
-                                        </Link>
-                                        <Button className='btn text-white' onClick={() => handleEdit(photo)}>
-                                            <FontAwesomeIcon icon="pencil" />
-                                        </Button>
-                                        <Button className='btn-default text-white' onClick={() => handleDelete(photo._id)}>
-                                            <FontAwesomeIcon icon="xmark" />
-                                        </Button>
+                                        <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-bottom">Ver foto</Tooltip>}>
+                                            <Link to={`/photos/${photo._id}`} className='btn btn-dark text-white'>
+                                                <FontAwesomeIcon icon="eye"/>
+                                            </Link>
+                                        </OverlayTrigger>
+                                        <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-bottom">Editar foto</Tooltip>}>
+                                            <Button className='btn btn-dark text-white' onClick={() => handleEdit(photo)}>
+                                                <FontAwesomeIcon icon="pencil" />
+                                            </Button>
+                                        </OverlayTrigger>
+                                        <OverlayTrigger placement="bottom" overlay={<Tooltip id="tooltip-bottom">Excluir foto</Tooltip>}>
+                                            <Button className='btn btn-dark text-white' onClick={() => handleDelete(photo._id)}>
+                                                <FontAwesomeIcon icon="xmark" />
+                                            </Button>
+                                        </OverlayTrigger>
                                     </div>
                                 ) : (
                                     <Link to={`/photos/${photo._id}`}>Ver</Link>
