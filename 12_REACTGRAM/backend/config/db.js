@@ -7,7 +7,11 @@ const dbPass = process.env.DB_PASS;
 const conn = async () => {
     try {
         
-        const dbConn = await mongoose.connect(`mongodb+srv://${dbUser}:${dbPass}@cluster0.botw6vl.mongodb.net/?retryWrites=true&w=majority`);
+        // DB Production
+        const dbConn = await mongoose.connect(`mongodb+srv://${dbUser}:${dbPass}@reactgram.wo30jp7.mongodb.net/?retryWrites=true&w=majority`);
+        
+        // DB Development
+        // const dbConn = await mongoose.connect(`mongodb+srv://${dbUser}:${dbPass}@cluster0.botw6vl.mongodb.net/?retryWrites=true&w=majority`);
         
         console.log('Conectou ao banco');
 

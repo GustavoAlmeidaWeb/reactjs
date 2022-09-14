@@ -4,6 +4,7 @@ import { Container, Navbar, Nav, Form, Button, Row } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 // Hooks
+import { useState } from 'react';
 import { useAuth } from '../hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -19,11 +20,21 @@ const NavBar = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const [query, setQuery] = useState('');
+
   const handleLogout = () => {
     dispatch(logout());
     dispatch(reset());
 
     navigate('/');
+  }
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+
+    if(query){
+      return navigate(`/search?q=${query}`);
+    }
   }
 
   return (
@@ -34,12 +45,13 @@ const NavBar = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="m-auto">
-              <Form className="d-flex">
+              <Form className="d-flex" onSubmit={handleSearch}>
                 <Form.Control
-                  type="search"
+                  type="text"
                   placeholder="Pesquisar..."
                   className="me-2"
                   aria-label="Pesquisar..."
+                  onChange={(e) => setQuery(e.target.value)}
                 />
                 <Button variant="dark"><FontAwesomeIcon icon="search" /></Button>
               </Form>
