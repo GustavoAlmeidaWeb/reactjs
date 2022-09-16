@@ -1,6 +1,6 @@
 import './App.css';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
 // 4 - Custom Hook
 import { useFetch } from './hooks/useFetch';
@@ -53,7 +53,7 @@ function App() {
       {!error && (
         <ul>
           {items && items.map((product) => (
-            <li key={product.id}>{product.name} - R$: {product.price} - <button onClick={() => handleEdit(product.name, product.price, product.id)}>Editar</button> - <button onClick={()=> handleRemove(product.id)}>Excluir</button></li>
+            <li key={product.id}>{product.name} - {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(product.price)} - <button onClick={() => handleEdit(product.name, product.price, product.id)}>Editar</button> - <button onClick={()=> handleRemove(product.id)}>Excluir</button></li>
           ))}
         </ul>
       )}
@@ -65,12 +65,13 @@ function App() {
           </label>
           <label>
             Preço:
-            <input type="number" value={price} name="price" onChange={(e) => setPrice(e.target.value)}/>
+            <input type="number" step="any" value={price} name="price" onChange={(e) => setPrice(e.target.value)}/>
           </label>
           {!loading && <input type="submit" value="Salvar" />}
           {loading && <input type="submit" disabled value="Aguarde..." />}
         </form>
       </div>
+      <hr />
     </div>
   );
 }

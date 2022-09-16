@@ -30,6 +30,10 @@ const TaskForm = ({ btnText, taskList, setTaskList, task, handleUpdate }: Props)
 
     }, [task])
 
+    useEffect(() => {
+      localStorage.setItem('tasks-list', JSON.stringify(taskList));
+    }, [taskList]);
+
     const addTaskHandler = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 

@@ -54,6 +54,11 @@
       "name": "Tela",
       "price": 1990,
       "id": 17
+    },
+    {
+      "name": "Notebook",
+      "price": 5000,
+      "id": 18
     }
   ]
 }

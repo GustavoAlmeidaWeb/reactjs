@@ -19,7 +19,9 @@ import { ITask } from './interfaces/Task';
 
 function App() {
 
-  const [taskList, setTaskList] = useState<ITask[]>([]);
+  let cache = localStorage.getItem('tasks-list');
+
+  const [taskList, setTaskList] = useState<ITask[]>(!cache ? ([]) : (JSON.parse(cache)));
   const [taskToUpdate, setTaskToUpdate] = useState<ITask | null>(null);
 
   const deleteTask = (id: number) => {
