@@ -1,0 +1,11 @@
+.task {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding: 1em 0.5em;
+}
+.task h4,
+.task p {
+    text-align: left;
+}
