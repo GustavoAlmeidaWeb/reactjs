@@ -1,28 +1,13 @@
 {
   "products": [
     {
-      "id": 1,
-      "name": "Camisa",
-      "price": 59.9
-    },
-    {
-      "id": 2,
-      "name": "Bermuda",
-      "price": 100
-    },
-    {
-      "name": "VGA",
+      "name": "GeForce RTX 3700",
       "price": 4500,
       "id": 6
     },
     {
-      "name": "Gabinete",
-      "price": 200,
-      "id": 7
-    },
-    {
-      "name": "Motherboard",
-      "price": 800,
+      "name": "Asus TUF",
+      "price": 1700,
       "id": 8
     },
     {
@@ -37,11 +22,11 @@
     },
     {
       "name": "SSD 1TB NVME",
-      "price": 180,
+      "price": 550,
       "id": 11
     },
     {
-      "name": "Processador",
+      "name": "Ryzen 7 5800x",
       "price": 2500,
       "id": 12
     },
@@ -51,14 +36,9 @@
       "id": 13
     },
     {
-      "name": "Tela",
-      "price": 1990,
-      "id": 17
-    },
-    {
-      "name": "Notebook",
-      "price": 5000,
-      "id": 18
+      "name": "Gabinete Corsair",
+      "price": 900,
+      "id": 19
     }
   ]
 }

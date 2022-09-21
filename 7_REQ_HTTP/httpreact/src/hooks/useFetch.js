@@ -7,7 +7,6 @@ export const useFetch = (url) => {
 
     // 5 - Refatoring Post
     const [config, setConfig] = useState(null);
-    const [method, setMethod] = useState(null);
     const [callFetch, setCallFetch] = useState(false);
 
     // 6 - Loading
@@ -16,9 +15,6 @@ export const useFetch = (url) => {
     // 7 - Errors Traitment
     const [error, setError] = useState(null);
 
-    // 8 - id item Received
-    const [itemId, setItemId] = useState(null);
-
     const httpConfig = (data, method, id) => {
 
         // Create product method
@@ -26,35 +22,23 @@ export const useFetch = (url) => {
             setConfig({
                 url,
                 data,
-                method,
-                headers: {
-                    "Content-Type":"application/json"
-                }
+                method
             })
-            setMethod(method);
         
         // Delete product method
         } else if (method === 'DELETE') {
             setConfig({
                 url: `${url}/${data}`,
-                method,
-                headers: {
-                    "Content-Type":"application/json"
-                }
+                method
             })
-            setMethod(method);
 
         // Update product method
         } else if (method === 'PUT') {
             setConfig({
                 url: `${url}/${id}`,
                 data,
-                method,
-                headers: {
-                    "Content-Type":"application/json"
-                }
+                method
             })
-            setMethod(method);
         }
     }
 
@@ -88,9 +72,7 @@ export const useFetch = (url) => {
         const httpRequest = async () => {
 
             // Usei o Try Catch e deu merda... Não sei o pq :( ...
-            let json;
-            await axios({...config}).then(response => json = response.data);
-            setCallFetch(json);
+            await axios({...config}).then(response => setCallFetch(response.data));
 
         }
         httpRequest();

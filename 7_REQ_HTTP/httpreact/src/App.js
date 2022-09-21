@@ -5,6 +5,8 @@ import { useState } from 'react';
 // 4 - Custom Hook
 import { useFetch } from './hooks/useFetch';
 
+import CalcIMC from './components/CalcIMC';
+
 const url = 'http://localhost:3000/products';
 
 function App() {
@@ -15,6 +17,7 @@ function App() {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [idItem, setIdItem] = useState(null);
+  const [sum, setSum] = useState(0);
 
   // 2 - Add product
   const handleSubmit = async (e) => {
@@ -72,6 +75,7 @@ function App() {
         </form>
       </div>
       <hr />
+      <CalcIMC />
     </div>
   );
 }
